@@ -10,7 +10,7 @@
 
 ### Part 1: Mounting the Image
 - **Responsibilities**: [Description]
-- **Assigned to**: John Doe
+- **Assigned to**: Devan Erle
 
 ### Part 2: Navigation
 - **Responsibilities**: [Description]
@@ -68,6 +68,27 @@ This will build the executable in ...
 make run
 ```
 This will run the program ...
+
+## Development Log
+
+### [Devan Erle]
+
+| Date       | Work Completed / Notes |
+|------------|------------------------|
+| 2026-11-22 | [Began work on project, set up environment, and implemented part 1. Might revise further after learning more about FAT32 specification.]  |
+
+### [Traven Martini]
+
+| Date       | Work Completed / Notes |
+|------------|------------------------|
+| XXXX-XX-XX | [info]  |
+
+
+### [Alexey Cherepanov]
+
+| Date       | Work Completed / Notes |
+|------------|------------------------|
+| XXXX-XX-XX | [info]  |
 
 ## Bugs
 - **Bug 1**: This is bug 1.
