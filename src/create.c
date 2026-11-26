@@ -6,11 +6,10 @@
 #include <string.h>
 
 /*
- * Sets the FAT entry for `cluster` to `value`.
- *
+ * Sets the FAT entry for `cluster` to `value` 
  * The FAT is an array of 4-byte entries, one per cluster, stored right after the
  * reserved sectors. An entry holds the next cluster in a chain, 0 if the cluster is
- * free, or FAT_MASK (0x0FFFFFFF) if it is the last cluster of a chain.
+ * free, or FAT_MASK if it is the last cluster of a chain.
  * The image keeps BPB_NumFATs identical copies of the FAT back to back, so every
  * change has to be written to each copy or the copies stop matching.
  */
@@ -25,8 +24,7 @@ void set_fat(FAT32 *fs, uint32_t cluster, uint32_t value)
 }
 
 /*
- * Claims an unused cluster and returns its number (0 if the image is full).
- *
+ * Claims an unused cluster and returns its number (0 if the image is full)
  * Valid data clusters are numbered 2 up to (number of data clusters + 1), so we
  * scan that range for the first one whose FAT entry is 0 (free). The cluster is
  * marked end-of-chain so it is no longer free, then zeroed so it holds no leftover
@@ -121,8 +119,7 @@ static bool name_ok(FAT32 *fs, const char *cmd, const char *name)
 }
 
 /*
- * mkdir DIRNAME: creates an empty directory in the current directory.
- *
+ * Creates an empty directory in the current directory.
  * 1. Find a free slot in the current directory for the new entry.
  * 2. Allocate a zeroed cluster to hold the new directory's contents.
  * 3. Write the two entries every directory starts with: "." (points to itself)
@@ -147,7 +144,7 @@ void cmd_mkdir(FAT32 *fs, const char *name)
 }
 
 /*
- * creat FILENAME: creates an empty file in the current directory.
+ * creat FILENAME. creates an empty file in the current directory.
  * Only a directory entry is written (size 0, first cluster 0). No cluster is
  * allocated because the file has no data yet; write will allocate one later.
  */
