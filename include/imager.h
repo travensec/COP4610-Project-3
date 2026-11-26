@@ -1,6 +1,6 @@
 #pragma once
 
-#include <bits/stdint-uintn.h>
+//#include <bits/stdint-uintn.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -34,7 +34,8 @@ typedef struct{
     uint32_t BS_VolID;
     uint8_t  BS_VolLab[11];
     uint8_t  BS_FilSysType[8];
-} BPB;
+} __attribute__((packed)) BPB;
+//} BPB;
 
 // Define a struct to keep track of info
 typedef struct {
@@ -43,6 +44,7 @@ typedef struct {
 
     uint32_t current_dir_cluster;
     uint64_t image_size;
+    char cwd_path[256];
 } FAT32;
 
 FAT32 * mount_image(char * input);
