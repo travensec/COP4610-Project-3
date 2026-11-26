@@ -1,6 +1,7 @@
 #include "lexer.h"
 #include "imager.h"
 #include "navigation.h"
+#include "create.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -48,6 +49,7 @@ int main(int argc, char * argv[])
 			break;
 		}
 
+
 		if (tokens->size == 0) {
 			// Empty line: nothing to do
 		} else if (!strcmp(tokens->items[0], "exit")) { // incorrect usage of exit
@@ -67,10 +69,19 @@ int main(int argc, char * argv[])
 				cmd_cd(image, tokens->items[1]);
 			else
 				printf("Usage: cd [DIRNAME]\n");
+		} else if (!strcmp(tokens->items[0], "mkdir")) {
+			if (tokens->size == 2)
+				cmd_mkdir(image, tokens->items[1]);
+			else
+				printf("Usage: mkdir [DIRNAME]\n");
+		} else if (!strcmp(tokens->items[0], "creat")) {
+			if (tokens->size == 2)
+				cmd_creat(image, tokens->items[1]);
+			else
+				printf("Usage: creat [FILENAME]\n");
 		} else {
 			printf("%s: command not found\n", tokens->items[0]);
 		}
-
 		free(input);
 		free_tokens(tokens);
 	}
