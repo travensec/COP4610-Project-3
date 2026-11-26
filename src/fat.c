@@ -4,13 +4,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Number of bytes in one cluster
+//number of bytes in a cluster
 uint32_t cluster_size(FAT32 *fs)
 {
     return fs->bpb.BPB_BytsPerSec * fs->bpb.BPB_SecPerClus;
 }
 
-// Byte offset in the image where cluster N begins
+//byte offset in the image where cluster N begins
 long cluster_offset(FAT32 *fs, uint32_t cluster)
 {
     // FAT32 has no fixed root directory region, so the data region starts right after the FATs
@@ -20,7 +20,7 @@ long cluster_offset(FAT32 *fs, uint32_t cluster)
     return (long)sector * fs->bpb.BPB_BytsPerSec;
 }
 
-// Looks up cluster N in the first FAT and returns the next cluster in its chain
+//looking up cluster N in the first FAT and returns the next cluster in the chain
 uint32_t get_next_cluster(FAT32 *fs, uint32_t cluster)
 {
     long fat_offset = (long)fs->bpb.BPB_RsvdSecCnt * fs->bpb.BPB_BytsPerSec + cluster * 4;
@@ -28,17 +28,16 @@ uint32_t get_next_cluster(FAT32 *fs, uint32_t cluster)
 
     fseek(fs->image, fat_offset, SEEK_SET);
     if (fread(&next, sizeof(next), 1, fs->image) != 1)
-        return FAT_EOC;  // treat a failed read as the end of the chain
+        return FAT_EOC;  //failed read = end of the chain
     return next & FAT_MASK;
 }
 
-// True when a cluster number means "stop following this chain"
 bool is_end_of_chain(uint32_t cluster)
 {
     return cluster < 2 || cluster >= FAT_EOC;
 }
 
-// First cluster of an entry: high word and low word stored separately
+//high word and low word stored separately
 uint32_t entry_first_cluster(const DirEntry *entry)
 {
     return ((uint32_t)entry->DIR_FstClusHI << 16) | entry->DIR_FstClusLO;
