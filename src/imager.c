@@ -5,7 +5,7 @@
 
 // Keep track of loaded image name, for shell
 static char loaded_image_name[256] = {0};
-char cwd_name[256] = "/";
+//char cwd_name[256] = "/";
 
 FAT32 * mount_image(char * input)
 {
@@ -44,7 +44,7 @@ FAT32 * mount_image(char * input)
     
     // Initializes current directory to root using / (for shell output)
     fat_image->current_dir_cluster = fat_image->bpb.BPB_RootClus;
-    strcpy(cwd_name, "/");
+    fat_image->cwd_path[0] = '\0';
 
     return fat_image;
 }
